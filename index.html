@@ -1,56 +1,47 @@
-<!doctype html>
-<html lang="en" ng-app='ShoppingListCheckOff'>
+<!DOCTYPE html>
+<html lang="en"ng-app="CheckOff">
   <head>
-    <title>Shopping List Check Off</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <meta charset="utf-8">
     <script src="angular.min.js"></script>
     <script src="app.js"></script>
-    <style>
-      .emptyMessage {
-        font-weight: bold;
-        color: red;
-        font-size: 1.2em;
-      }
-      li {
-        margin-bottom: 7px;
-        font-size: 1.2em;
-      }
-      li > button {
-        margin-left: 6px;
-      }
-      button > span {
-        color: green;
-      }
-    </style>
+    <title>Check off List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
-<body>
-  <div class="container">
+  <body>
   <h1>Shopping List Check Off</h1>
-
-  <div class="row">
-    <div ng-controller='ToBuyController as ToBuyItems' class="col-md-6">
-     <h2>To Buy:</h2>
-     <ul>
-       <li ng-repeat="item in ToBuyItems.items">
-         Buy {{item.quentity}} {{item.name}}
-         <button ng-click="ToBuyItems.boughtItem($index);" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-     </ul>
-     <div ng-if="ToBuyItems.items.length === 0" class="emptyMessage">
+  <div class="container">
+  <div class="raw">
+  <div class="col-lg-6 col-md-6" ng-controller='ToBuyCotroller as ToBuy'>
+    <h2>To Buy:</h2>
+    <ul>
+      <li ng-repeat="type in ToBuy.items" class="items">
+        {{$index +1}} Buy {{type.quentity}} {{type.name}}
+        <button ng-click="ToBuy.getFun($index);" class=" btn btn-default">
+        <span class=" glyphicon glyphicon-shopping-cart">Bought</span></button>
+      </li>
+    </ul>
+    <div ng-if="ToBuy.items.length === 0" id="buy">
        Everything is bought!</div>
     </div>
+  </div>
 
-    <div ng-controller='AlreadyBoughtController as boughtItems' class="col-md-6">
-     <h2>Already Bought:</h2>
-     <ul>
-       <li ng-repeat="item in boughtItems.items">
-         Bought {{item.quentity}} {{item.name}}</li>
-     </ul>
-     <div ng-if="boughtItems.items.length == 0" class="emptyMessage">
+  <div class="col-lg-6 col-md-6" ng-controller='BoughtController as bought'>
+    <h2>Bought List:</h2>
+    <ul>
+      <li ng-repeat="type in bought.data" class="items">
+        {{$index + 1}} Bought {{type.quentity}} {{type.name}}
+        <span class="btn btn-success btn-default glyphicon glyphicon-ok"
+         ></span>
+    </ul>
+    <div ng-if="bought.data.length == 0" id="bought">
        Nothing bought yet.</div>
-    </div>
+  </div>
   </div>
 </div>
 
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
 </html>

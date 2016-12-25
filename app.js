@@ -1,60 +1,45 @@
 (function () {
-'ues strict';
+  'ues strict';
 
+angular.module('CheckOff', [])
+.controller('ToBuyCotroller', ToBuyCotroller)
+.controller('BoughtController', BoughtController)
+.service('ShoppingListService', ShoppingListService);
 
-
-angular.module('ShoppingListCheckOff', [])
-.controller('ToBuyController', ToBuyController)
-.controller('AlreadyBoughtController', AlreadyBoughtController)
-.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
-
-function ShoppingListCheckOffService() {
+function ShoppingListService() {
   var service = this;
 
-  service.toBuy = [
-    {
-      name: "Chips",
-      quentity: 5
-    },
-    {
-      name: "Peanut",
-      quentity: 10
-    },
-    {
-      name: "Hamburger",
-      quentity: 6
-    },
-    {
-      name: "Chicken",
-      quentity: 3
-    },
-    {
-      name: "Beef Masala",
-      quentity: 8
-    }
+  service.items = [
+    {name: "Cookies", quentity: 5},
+    {name: "Hamburger", quentity: 10 },
+    {name: "Peanut", quentity: 10},
+    {name: "Beef Masala", quentity: 7},
+    {name: "Besmil", quentity: 6}
   ];
 
-  service.bought = [];
+   service.bought = [];
 
   service.boughtItem = function (itemIndex) {
-    var item = service.toBuy[itemIndex];
-    service.toBuy.splice(itemIndex, 1);
+    var item = service.items[itemIndex];
+    service.items.splice(itemIndex, 1);
     service.bought.push(item);
   };
+}
+
+ToBuyCotroller.$inject = ['ShoppingListService'];
+function ToBuyCotroller(ShoppingListService) {
+  var ToBuy = this;
+  ToBuy.items = ShoppingListService.items;
+  ToBuy.getFun = ShoppingListService.boughtItem;
+
 
 }
 
-ToBuyController.$inject = ['ShoppingListCheckOffService'];
-function ToBuyController(ShoppingListCheckOffService) {
-  var buyCon = this;
-  buyCon.items = ShoppingListCheckOffService.toBuy;
-  buyCon.boughtItem = ShoppingListCheckOffService.boughtItem;
-}
+BoughtController.$inject = ['ShoppingListService'];
+function BoughtController(ShoppingListService) {
+  var here = this;
 
-AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-function AlreadyBoughtController(ShoppingListCheckOffService) {
-  var bouCon = this;
-  bouCon.items = ShoppingListCheckOffService.bought;
+  here.data = ShoppingListService.bought;
 }
 
 })();

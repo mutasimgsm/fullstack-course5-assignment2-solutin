@@ -1,0 +1,28 @@
+
+ .btn {
+   margin: 5px;
+   padding: 0;
+ }
+
+ h1 {
+   text-align: center;
+ }
+#bought {
+  font-size: 2.0em;
+  color: #b32d00;
+  font-style: italic;
+}
+
+#buy {
+  font-size: 2.0em;
+  color: #39ac39;
+  font-style: italic;
+}
+
+.items  {
+  font-size: 1.5em;
+}
+
+ul {
+  list-style-type: none;
+}
